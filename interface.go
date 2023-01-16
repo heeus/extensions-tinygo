@@ -31,11 +31,6 @@ type IKeyBuilder interface {
 type IValueBuilder interface {
 	PutInt32(name string, value int32)
 	PutString(name string, value string)
-	PutValue(name string) IValueBuilder // throws panic if field is not an object or array
-
-	SetInt32(index int, value int32)
-	SetString(index int, value string)
-	SetValue(index int) IValueBuilder // throws panic if field is not an object or array
 }
 
 type IIntent interface {
