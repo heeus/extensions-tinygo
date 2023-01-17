@@ -5,11 +5,11 @@
 
 package extensions
 
-var KeyBuilder func(storage, entity string) (b IKeyBuilder) = keyBuilderImpl
-var CanExist func(key IKeyBuilder) (exists bool, value Value) = canExistImpl
-var MustExist func(key IKeyBuilder) Value = mustExistImpl
-var UpdateValue func(key IKeyBuilder, existingValue IValue) IIntent = updateValueImpl
-var NewValue func(key IKeyBuilder) IIntent = newValueImpl
+var KeyBuilder func(storage, entity string) (b TKeyBuilder) = keyBuilderImpl
+var CanExist func(key TKeyBuilder) (exists bool, value TValue) = canExistImpl
+var MustExist func(key TKeyBuilder) TValue = mustExistImpl
+var UpdateValue func(key TKeyBuilder, existingValue TValue) TIntent = updateValueImpl
+var NewValue func(key TKeyBuilder) TIntent = newValueImpl
 
 type IValue interface {
 	Length() uint32

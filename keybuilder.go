@@ -10,20 +10,20 @@ import (
 	"unsafe"
 )
 
-func keyBuilderImpl(storage, entity string) IKeyBuilder {
+func keyBuilderImpl(storage, entity string) TKeyBuilder {
 	sh := (*reflect.StringHeader)(unsafe.Pointer(&storage))
 	eh := (*reflect.StringHeader)(unsafe.Pointer(&entity))
-	return keyBuilder(hostGetKey(uint32(sh.Data), uint32(sh.Len), uint32(eh.Data), uint32(eh.Len)))
+	return TKeyBuilder(hostGetKey(uint32(sh.Data), uint32(sh.Len), uint32(eh.Data), uint32(eh.Len)))
 }
 
-type keyBuilder uint64
+type TKeyBuilder uint64
 
-func (k keyBuilder) PutInt32(name string, value int32) {
+func (k TKeyBuilder) PutInt32(name string, value int32) {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
 	hostKeyPutInt32(uint64(k), uint32(nh.Data), uint32(nh.Len), uint32(value))
 }
 
-func (k keyBuilder) PutString(name string, value string) {
+func (k TKeyBuilder) PutString(name string, value string) {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
 	vh := (*reflect.StringHeader)(unsafe.Pointer(&value))
 	hostKeyPutString(uint64(k), uint32(nh.Data), uint32(nh.Len), uint32(vh.Data), uint32(vh.Len))

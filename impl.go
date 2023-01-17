@@ -5,25 +5,25 @@
 
 package extensions
 
-func canExistImpl(key IKeyBuilder) (bool, Value) {
-	id := hostCanExist(uint64(key.(keyBuilder)))
+func canExistImpl(key TKeyBuilder) (bool, TValue) {
+	id := hostCanExist(uint64(key))
 	if id > 0 {
-		return true, Value(id)
+		return true, TValue(id)
 	} else {
-		return false, Value(0)
+		return false, TValue(0)
 	}
 }
 
-func mustExistImpl(key IKeyBuilder) Value {
-	return Value(hostMustExist(uint64(key.(keyBuilder))))
+func mustExistImpl(key TKeyBuilder) TValue {
+	return TValue(hostMustExist(uint64(key)))
 }
 
-func updateValueImpl(key IKeyBuilder, existingValue IValue) IIntent {
-	return intent(hostUpdateValue(uint64(key.(keyBuilder)), uint64(existingValue.(Value))))
+func updateValueImpl(key TKeyBuilder, existingValue TValue) TIntent {
+	return TIntent(hostUpdateValue(uint64(key), uint64(existingValue)))
 }
 
-func newValueImpl(key IKeyBuilder) IIntent {
-	return intent(hostNewValue(uint64(key.(keyBuilder))))
+func newValueImpl(key TKeyBuilder) TIntent {
+	return TIntent(hostNewValue(uint64(key)))
 }
 
 //export HostMustExist
