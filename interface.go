@@ -6,8 +6,8 @@
 package extensions
 
 var KeyBuilder func(storage, entity string) (b IKeyBuilder) = keyBuilderImpl
-var CanExist func(key IKeyBuilder) (exists bool, value IValue) = canExistImpl
-var MustExist func(key IKeyBuilder) IValue = mustExistImpl
+var CanExist func(key IKeyBuilder) (exists bool, value Value) = canExistImpl
+var MustExist func(key IKeyBuilder) Value = mustExistImpl
 var UpdateValue func(key IKeyBuilder, existingValue IValue) IIntent = updateValueImpl
 var NewValue func(key IKeyBuilder) IIntent = newValueImpl
 

@@ -5,21 +5,21 @@
 
 package extensions
 
-func canExistImpl(key IKeyBuilder) (bool, IValue) {
+func canExistImpl(key IKeyBuilder) (bool, Value) {
 	id := hostCanExist(uint64(key.(keyBuilder)))
 	if id > 0 {
-		return true, value(id)
+		return true, Value(id)
 	} else {
-		return false, &emptyValue{}
+		return false, Value(0)
 	}
 }
 
-func mustExistImpl(key IKeyBuilder) IValue {
-	return value(hostMustExist(uint64(key.(keyBuilder))))
+func mustExistImpl(key IKeyBuilder) Value {
+	return Value(hostMustExist(uint64(key.(keyBuilder))))
 }
 
 func updateValueImpl(key IKeyBuilder, existingValue IValue) IIntent {
-	return intent(hostUpdateValue(uint64(key.(keyBuilder)), uint64(existingValue.(value))))
+	return intent(hostUpdateValue(uint64(key.(keyBuilder)), uint64(existingValue.(Value))))
 }
 
 func newValueImpl(key IKeyBuilder) IIntent {
