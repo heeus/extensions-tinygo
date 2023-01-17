@@ -6,8 +6,8 @@
 package extensions
 
 var KeyBuilder func(storage, entity string) (b IKeyBuilder) = keyBuilderImpl
-var CanExist func(key IKeyBuilder) (exists bool, value IValue) = canExistImpl
-var MustExist func(key IKeyBuilder) IValue = mustExistImpl
+var CanExist func(key IKeyBuilder) (exists bool, value Value) = canExistImpl
+var MustExist func(key IKeyBuilder) Value = mustExistImpl
 var UpdateValue func(key IKeyBuilder, existingValue IValue) IIntent = updateValueImpl
 var NewValue func(key IKeyBuilder) IIntent = newValueImpl
 
@@ -31,11 +31,6 @@ type IKeyBuilder interface {
 type IValueBuilder interface {
 	PutInt32(name string, value int32)
 	PutString(name string, value string)
-	PutValue(name string) IValueBuilder // throws panic if field is not an object or array
-
-	SetInt32(index int, value int32)
-	SetString(index int, value string)
-	SetValue(index int) IValueBuilder // throws panic if field is not an object or array
 }
 
 type IIntent interface {

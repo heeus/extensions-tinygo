@@ -24,24 +24,6 @@ func (i valueBuilder) PutString(name string, value string) {
 	hostIntentPutString(uint64(i), uint32(nh.Data), uint32(nh.Len), uint32(vh.Data), uint32(vh.Len))
 }
 
-func (i valueBuilder) PutValue(name string) IValueBuilder {
-	return nil
-	// TODO
-}
-
-func (i valueBuilder) SetInt32(index int, value int32) {
-	// TODO
-}
-
-func (i valueBuilder) SetString(index int, value string) {
-	// TODO
-}
-
-func (i valueBuilder) SetValue(index int) IValueBuilder {
-	return nil
-	// TODO
-}
-
 //export HostIntentPutString
 func hostIntentPutString(id uint64, namePtr, nameSize, valuePtr, valueSize uint32)
 
