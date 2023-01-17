@@ -10,39 +10,39 @@ import (
 	"unsafe"
 )
 
-type Value uint64
+type TValue uint64
 
-func (v Value) Length() uint32 {
+func (v TValue) Length() uint32 {
 	return hostValueLength(uint64(v))
 }
 
-func (v Value) AsString(name string) string {
+func (v TValue) AsString(name string) string {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
 	ptr := hostValueAsString(uint64(v), uint32(nh.Data), uint32(nh.Len))
 	return decodeString(ptr)
 }
 
-func (v Value) AsInt32(name string) int32 {
+func (v TValue) AsInt32(name string) int32 {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
 	return int32(hostValueAsInt32(uint64(v), uint32(nh.Data), uint32(nh.Len)))
 }
 
-func (v Value) AsValue(name string) IValue {
+func (v TValue) AsValue(name string) TValue {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
-	return Value(hostValueAsValue(uint64(v), uint32(nh.Data), uint32(nh.Len)))
+	return TValue(hostValueAsValue(uint64(v), uint32(nh.Data), uint32(nh.Len)))
 }
 
-func (v Value) GetAsString(index int) string {
+func (v TValue) GetAsString(index int) string {
 	ptr := hostValueGetAsString(uint64(v), uint32(index))
 	return decodeString(ptr)
 }
 
-func (v Value) GetAsInt32(index int) int32 {
+func (v TValue) GetAsInt32(index int) int32 {
 	return int32(hostValueGetAsInt32(uint64(v), uint32(index)))
 }
 
-func (v Value) GetAsValue(index int) IValue {
-	return Value(hostValueGetAsValue(uint64(v), uint32(index)))
+func (v TValue) GetAsValue(index int) TValue {
+	return TValue(hostValueGetAsValue(uint64(v), uint32(index)))
 }
 
 func decodeString(value uint64) (ret string) {

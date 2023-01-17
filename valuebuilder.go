@@ -11,7 +11,7 @@ import (
 )
 
 type valueBuilder uint64
-type intent = valueBuilder
+type TIntent = valueBuilder
 
 func (i valueBuilder) PutInt32(name string, value int32) {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
