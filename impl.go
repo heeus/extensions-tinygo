@@ -5,6 +5,8 @@
 
 package extensions
 
+import "runtime"
+
 func canExistImpl(key TKeyBuilder) (bool, TValue) {
 	id := hostCanExist(uint64(key))
 	if id > 0 {
@@ -50,3 +52,34 @@ func init() {}
 
 //export WasmFInit
 func finit() {}
+
+var ms runtime.MemStats
+
+//export GetHeapInuse
+func getHeapInuse() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.HeapInuse
+}
+
+//export GetMallocs
+func getMallocs() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.Mallocs
+}
+
+//export GetFrees
+func getFrees() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.Frees
+}
+
+//export GetHeapSys
+func getHeapSys() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.HeapSys
+}
+
+//export GC
+func gc() {
+	runtime.GC()
+}
