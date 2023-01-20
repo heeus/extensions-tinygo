@@ -48,7 +48,8 @@ func (v TValue) GetAsValue(index int) TValue {
 func decodeString(value uint64) (ret string) {
 	strHdr := (*reflect.StringHeader)(unsafe.Pointer(&ret))
 	strHdr.Data = uintptr(uint32(value >> 32))
-	strHdr.Len = uintptr(uint32(value))
+	strHdr.Len = extint(uint32(value))
+
 	return
 }
 
