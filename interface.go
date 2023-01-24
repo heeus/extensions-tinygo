@@ -6,10 +6,24 @@
 package extensions
 
 var KeyBuilder func(storage, entity string) (b TKeyBuilder) = keyBuilderImpl
-var CanExist func(key TKeyBuilder) (exists bool, value TValue) = canExistImpl
-var MustExist func(key TKeyBuilder) TValue = mustExistImpl
+
+var QueryValue func(key TKeyBuilder) (exists bool, value TValue) = queryValueImpl
+
+var GetValue func(key TKeyBuilder) TValue = getValueImpl
+
+// ReadValues reads from partial key and returns values in callback.
+//
+// Important: key and value are not kept after callback!
+var ReadValues func(key TKeyBuilder, callback func(key TKey, value TValue)) = readValuesImpl
+
 var UpdateValue func(key TKeyBuilder, existingValue TValue) TIntent = updateValueImpl
+
 var NewValue func(key TKeyBuilder) TIntent = newValueImpl
+
+type IKey interface {
+	AsString(name string) string
+	AsInt32(name string) int32
+}
 
 type IValue interface {
 	Length() uint32
