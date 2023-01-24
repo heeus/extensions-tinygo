@@ -7,6 +7,12 @@ package extensions
 
 import "runtime"
 
+func Assert(condition bool) {
+	if !condition {
+		panic("Assertion failed")
+	}
+}
+
 func queryValueImpl(key TKeyBuilder) (bool, TValue) {
 	id := hostQueryValue(uint64(key))
 	if id > 0 {
