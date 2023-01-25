@@ -50,7 +50,8 @@ func (v TKey) AsBytes(name string) (ret []byte) {
 
 func (v TKey) AsQName(name string) QName {
 	nh := (*reflect.StringHeader)(unsafe.Pointer(&name))
-	pkgPtr, entityPtr := hostKeyAsQName(uint64(v), uint32(nh.Data), uint32(nh.Len))
+	pkgPtr := hostKeyAsQNamePkg(uint64(v), uint32(nh.Data), uint32(nh.Len))
+	entityPtr := hostKeyAsQNameEntity(uint64(v), uint32(nh.Data), uint32(nh.Len))
 	return QName{
 		Pkg:    decodeString(pkgPtr),
 		Entity: decodeString(entityPtr),
@@ -69,8 +70,11 @@ func hostKeyAsString(id uint64, namePtr, nameSize uint32) uint64
 //export HostKeyAsBytes
 func hostKeyAsBytes(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsQName
-func hostKeyAsQName(id uint64, namePtr, nameSize uint32) (uint64, uint64)
+//export HostKeyAsQNamePkg
+func hostKeyAsQNamePkg(id uint64, namePtr, nameSize uint32) uint64
+
+//export HostKeyAsQNameEntity
+func hostKeyAsQNameEntity(id uint64, namePtr, nameSize uint32) uint64
 
 //export HostKeyAsBool
 func hostKeyAsBool(id uint64, namePtr, nameSize uint32) uint64
@@ -82,7 +86,7 @@ func hostKeyAsInt32(id uint64, namePtr, nameSize uint32) uint32
 func hostKeyAsInt64(id uint64, namePtr, nameSize uint32) uint64
 
 //export HostKeyAsFloat32
-func hostKeyAsFloat32(id uint64, namePtr, nameSize uint32) uint32
+func hostKeyAsFloat32(id uint64, namePtr, nameSize uint32) float32
 
 //export HostKeyAsFloat64
-func hostKeyAsFloat64(id uint64, namePtr, nameSize uint32) uint64
+func hostKeyAsFloat64(id uint64, namePtr, nameSize uint32) float64

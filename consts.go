@@ -6,9 +6,14 @@
 package extensions
 
 const (
-	StorageEvent    = "sys.Event"
-	StorageSendmail = "sys.Sendmail"
-	StorageRecords  = "sys.Records"
+	StorageEvent       = "sys.EventStorage"
+	StorageSendmail    = "sys.SendMailStorage"
+	StorageRecords     = "sys.RecordsStorage"
+	StorageViewRecords = "sys.ViewRecordsStorage"
+	StorageWLog        = "sys.WLogStorage"
+	StoragePLog        = "sys.PLogStorage"
+	StorageHTTP        = "sys.HTTPStorage"
+	StorageAppSecrets  = "sys.AppSecretsStorage"
 
 	NullEntity = ""
 )

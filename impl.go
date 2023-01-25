@@ -5,12 +5,21 @@
 
 package extensions
 
-import "runtime"
+import (
+	"reflect"
+	"runtime"
+	"unsafe"
+)
 
-func Assert(condition bool) {
+func Assert(condition bool, msg string) {
 	if !condition {
-		panic("Assertion failed")
+		Panic("assertion failed: " + msg)
 	}
+}
+
+func Panic(msg string) {
+	nh := (*reflect.StringHeader)(unsafe.Pointer(&msg))
+	hostPanic(uint32(nh.Data), uint32(nh.Len))
 }
 
 func queryValueImpl(key TKeyBuilder) (bool, TValue) {
@@ -104,3 +113,30 @@ func getHeapSys() uint64 {
 func gc() {
 	runtime.GC()
 }
+
+//export HostPanic
+func hostPanic(msgPtr, msgSize uint32)
+
+//export HostRowWriterPutString
+func hostRowWriterPutString(id uint64, typ uint32, namePtr, nameSize, valuePtr, valueSize uint32)
+
+//export HostRowWriterPutBytes
+func hostRowWriterPutBytes(id uint64, typ uint32, namePtr, nameSize, valuePtr, valueSize uint32)
+
+//export HostRowWriterPutQName
+func hostRowWriterPutQName(id uint64, typ uint32, namePtr, nameSize, pkgPtr, pkgSize, entityPtr, entitySize uint32)
+
+//export HostRowWriterPutIntBool
+func hostRowWriterPutBool(id uint64, typ uint32, namePtr, nameSize, value uint32)
+
+//export HostRowWriterPutInt32
+func hostRowWriterPutInt32(id uint64, typ uint32, namePtr, nameSize, value uint32)
+
+//export HostRowWriterPutInt64
+func hostRowWriterPutInt64(id uint64, typ uint32, namePtr, nameSize uint32, value uint64)
+
+//export HostRowWriterPutFloat32
+func hostRowWriterPutFloat32(id uint64, typ uint32, namePtr, nameSize uint32, value float32)
+
+//export HostRowWriterPutFloat64
+func hostRowWriterPutFloat64(id uint64, typ uint32, namePtr, nameSize uint32, value float64)
