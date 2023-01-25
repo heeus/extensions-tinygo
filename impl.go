@@ -5,10 +5,25 @@
 
 package extensions
 
-import "runtime"
+import (
+	"reflect"
+	"runtime"
+	"unsafe"
+)
 
-func canExistImpl(key TKeyBuilder) (bool, TValue) {
-	id := hostCanExist(uint64(key))
+func Assert(condition bool, msg string) {
+	if !condition {
+		Panic("assertion failed: " + msg)
+	}
+}
+
+func Panic(msg string) {
+	nh := (*reflect.StringHeader)(unsafe.Pointer(&msg))
+	hostPanic(uint32(nh.Data), uint32(nh.Len))
+}
+
+func queryValueImpl(key TKeyBuilder) (bool, TValue) {
+	id := hostQueryValue(uint64(key))
 	if id > 0 {
 		return true, TValue(id)
 	} else {
@@ -16,8 +31,8 @@ func canExistImpl(key TKeyBuilder) (bool, TValue) {
 	}
 }
 
-func mustExistImpl(key TKeyBuilder) TValue {
-	return TValue(hostMustExist(uint64(key)))
+func getValueImpl(key TKeyBuilder) TValue {
+	return TValue(hostGetValue(uint64(key)))
 }
 
 func updateValueImpl(key TKeyBuilder, existingValue TValue) TIntent {
@@ -28,14 +43,29 @@ func newValueImpl(key TKeyBuilder) TIntent {
 	return TIntent(hostNewValue(uint64(key)))
 }
 
-//export HostMustExist
-func hostMustExist(keyId uint64) (result uint64)
+func readValuesImpl(key TKeyBuilder, callback func(key TKey, value TValue)) {
+	currentReadCallback = callback
+	hostReadValues(uint64(key))
+}
+
+var currentReadCallback func(key TKey, value TValue)
+
+//export WasmOnReadValue
+func onReadValue(key, value uint64) {
+	currentReadCallback(TKey(key), TValue(value))
+}
+
+//export HostReadValues
+func hostReadValues(keyId uint64)
+
+//export HostGetValue
+func hostGetValue(keyId uint64) (result uint64)
 
 /*
 	returns 0 when not exists
 */
-//export HostCanExist
-func hostCanExist(keyId uint64) (result uint64)
+//export HostQueryValue
+func hostQueryValue(keyId uint64) (result uint64)
 
 //export HostNewValue
 func hostNewValue(keyId uint64) uint64
@@ -83,3 +113,30 @@ func getHeapSys() uint64 {
 func gc() {
 	runtime.GC()
 }
+
+//export HostPanic
+func hostPanic(msgPtr, msgSize uint32)
+
+//export HostRowWriterPutString
+func hostRowWriterPutString(id uint64, typ uint32, namePtr, nameSize, valuePtr, valueSize uint32)
+
+//export HostRowWriterPutBytes
+func hostRowWriterPutBytes(id uint64, typ uint32, namePtr, nameSize, valuePtr, valueSize uint32)
+
+//export HostRowWriterPutQName
+func hostRowWriterPutQName(id uint64, typ uint32, namePtr, nameSize, pkgPtr, pkgSize, entityPtr, entitySize uint32)
+
+//export HostRowWriterPutIntBool
+func hostRowWriterPutBool(id uint64, typ uint32, namePtr, nameSize, value uint32)
+
+//export HostRowWriterPutInt32
+func hostRowWriterPutInt32(id uint64, typ uint32, namePtr, nameSize, value uint32)
+
+//export HostRowWriterPutInt64
+func hostRowWriterPutInt64(id uint64, typ uint32, namePtr, nameSize uint32, value uint64)
+
+//export HostRowWriterPutFloat32
+func hostRowWriterPutFloat32(id uint64, typ uint32, namePtr, nameSize uint32, value float32)
+
+//export HostRowWriterPutFloat64
+func hostRowWriterPutFloat64(id uint64, typ uint32, namePtr, nameSize uint32, value float64)

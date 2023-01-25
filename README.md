@@ -11,7 +11,7 @@ import (
 
 //export exampleExtension
 func exampleExtension() {
-	event := ext.MustExist(ext.KeyBuilder(ext.StorageEvent, ext.NullEntity))
+	event := ext.GetValue(ext.KeyBuilder(ext.StorageEvent, ext.NullEntity))
 
 	if event.AsString("qname") == "air.UpdateSubscription" {
 		json := event.AsValue("arg")
