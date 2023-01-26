@@ -77,39 +77,33 @@ func hostUpdateValue(keyId uint64, existingValueId uint64) uint64
 func proxyABIVersion() {
 }
 
-//export WasmInit
-func init() {}
-
-//export WasmFInit
-func finit() {}
-
 var ms runtime.MemStats
 
-//export GetHeapInuse
+//export WasmGetHeapInuse
 func getHeapInuse() uint64 {
 	runtime.ReadMemStats(&ms)
 	return ms.HeapInuse
 }
 
-//export GetMallocs
+//export WasmGetMallocs
 func getMallocs() uint64 {
 	runtime.ReadMemStats(&ms)
 	return ms.Mallocs
 }
 
-//export GetFrees
+//export WasmGetFrees
 func getFrees() uint64 {
 	runtime.ReadMemStats(&ms)
 	return ms.Frees
 }
 
-//export GetHeapSys
+//export WasmGetHeapSys
 func getHeapSys() uint64 {
 	runtime.ReadMemStats(&ms)
 	return ms.HeapSys
 }
 
-//export GC
+//export WasmGC
 func gc() {
 	runtime.GC()
 }
