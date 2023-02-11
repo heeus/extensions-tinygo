@@ -7,7 +7,6 @@ package extensions
 
 import (
 	"reflect"
-	"runtime"
 	"unsafe"
 )
 
@@ -55,82 +54,51 @@ func onReadValue(key, value uint64) {
 	currentReadCallback(TKey(key), TValue(value))
 }
 
-//export HostReadValues
+//export hostReadValues
 func hostReadValues(keyId uint64)
 
-//export HostGetValue
+//export hostGetValue
 func hostGetValue(keyId uint64) (result uint64)
 
 /*
 	returns 0 when not exists
 */
-//export HostQueryValue
+//export hostQueryValue
 func hostQueryValue(keyId uint64) (result uint64)
 
-//export HostNewValue
+//export hostNewValue
 func hostNewValue(keyId uint64) uint64
 
-//export HostUpdateValue
+//export hostUpdateValue
 func hostUpdateValue(keyId uint64, existingValueId uint64) uint64
 
 //export WasmAbiVersion_0_0_1
 func proxyABIVersion() {
 }
 
-var ms runtime.MemStats
-
-//export WasmGetHeapInuse
-func getHeapInuse() uint64 {
-	runtime.ReadMemStats(&ms)
-	return ms.HeapInuse
-}
-
-//export WasmGetMallocs
-func getMallocs() uint64 {
-	runtime.ReadMemStats(&ms)
-	return ms.Mallocs
-}
-
-//export WasmGetFrees
-func getFrees() uint64 {
-	runtime.ReadMemStats(&ms)
-	return ms.Frees
-}
-
-//export WasmGetHeapSys
-func getHeapSys() uint64 {
-	runtime.ReadMemStats(&ms)
-	return ms.HeapSys
-}
-
-//export WasmGC
-func gc() {
-	runtime.GC()
-}
-
-//export HostPanic
+//export hostPanic
 func hostPanic(msgPtr, msgSize uint32)
 
-//export HostRowWriterPutString
+//export hostRowWriterPutString
 func hostRowWriterPutString(id uint64, typ uint32, namePtr, nameSize, valuePtr, valueSize uint32)
 
-//export HostRowWriterPutBytes
+//export hostRowWriterPutBytes
 func hostRowWriterPutBytes(id uint64, typ uint32, namePtr, nameSize, valuePtr, valueSize uint32)
 
-//export HostRowWriterPutQName
+//export hostRowWriterPutQName
 func hostRowWriterPutQName(id uint64, typ uint32, namePtr, nameSize, pkgPtr, pkgSize, entityPtr, entitySize uint32)
 
-//export HostRowWriterPutIntBool
+//export hostRowWriterPutIntBool
 func hostRowWriterPutBool(id uint64, typ uint32, namePtr, nameSize, value uint32)
 
-//export HostRowWriterPutInt32
+//export hostRowWriterPutInt32
 func hostRowWriterPutInt32(id uint64, typ uint32, namePtr, nameSize, value uint32)
 
-//export HostRowWriterPutInt64
+//export hostRowWriterPutInt64
 func hostRowWriterPutInt64(id uint64, typ uint32, namePtr, nameSize uint32, value uint64)
 
-//export HostRowWriterPutFloat32
+//export hostRowWriterPutFloat32
 func hostRowWriterPutFloat32(id uint64, typ uint32, namePtr, nameSize uint32, value float32)
 
-//export HostRowWriterPutFloat64
+//export hostRowWriterPutFloat64
 func hostRowWriterPutFloat64(id uint64, typ uint32, namePtr, nameSize uint32, value float64)

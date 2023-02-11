@@ -27,5 +27,5 @@ func (k TKeyBuilder) PutString(name string, value string) {
 	hostRowWriterPutString(uint64(k), 0, uint32(nh.Data), uint32(nh.Len), uint32(vh.Data), uint32(vh.Len))
 }
 
-//export HostGetKey
+//export hostGetKey
 func hostGetKey(storagePtr, storageSize, entityPtr, entitySize uint32) uint64

@@ -123,65 +123,65 @@ func decodeString(value uint64) (ret string) {
 	return
 }
 
-//export HostValueLength
+//export hostValueLength
 func hostValueLength(id uint64) uint32
 
-//export HostValueAsBytes
+//export hostValueAsBytes
 func hostValueAsBytes(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueAsString
+//export hostValueAsString
 func hostValueAsString(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueAsInt32
+//export hostValueAsInt32
 func hostValueAsInt32(id uint64, namePtr, nameSize uint32) uint32
 
-//export HostValueAsInt64
+//export hostValueAsInt64
 func hostValueAsInt64(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueAsFloat32
+//export hostValueAsFloat32
 func hostValueAsFloat32(id uint64, namePtr, nameSize uint32) float32
 
-//export HostValueAsFloat64
+//export hostValueAsFloat64
 func hostValueAsFloat64(id uint64, namePtr, nameSize uint32) float64
 
-//export HostValueAsValue
+//export hostValueAsValue
 func hostValueAsValue(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueAsQNamePkg
+//export hostValueAsQNamePkg
 func hostValueAsQNamePkg(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueAsQNameEntity
+//export hostValueAsQNameEntity
 func hostValueAsQNameEntity(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueAsBool
+//export hostValueAsBool
 func hostValueAsBool(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostValueGetAsBytes
+//export hostValueGetAsBytes
 func hostValueGetAsBytes(id uint64, index uint32) uint64
 
-//export HostValueGetAsString
+//export hostValueGetAsString
 func hostValueGetAsString(id uint64, index uint32) uint64
 
-//export HostValueGetAsInt32
+//export hostValueGetAsInt32
 func hostValueGetAsInt32(id uint64, index uint32) uint32
 
-//export HostValueGetAsInt64
+//export hostValueGetAsInt64
 func hostValueGetAsInt64(id uint64, index uint32) uint64
 
-//export HostValueGetAsFloat32
+//export hostValueGetAsFloat32
 func hostValueGetAsFloat32(id uint64, index uint32) float32
 
-//export HostValueGetAsFloat64
+//export hostValueGetAsFloat64
 func hostValueGetAsFloat64(id uint64, index uint32) float64
 
-//export HostValueGetAsValue
+//export hostValueGetAsValue
 func hostValueGetAsValue(id uint64, index uint32) uint64
 
-//export HostValueGetAsQNamePkg
+//export hostValueGetAsQNamePkg
 func hostValueGetAsQNamePkg(id uint64, index uint32) uint64
 
-//export HostValueGetAsQNameEntity
+//export hostValueGetAsQNameEntity
 func hostValueGetAsQNameEntity(id uint64, index uint32) uint64
 
-//export HostValueGetAsBool
+//export hostValueGetAsBool
 func hostValueGetAsBool(id uint64, index uint32) uint64

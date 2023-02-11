@@ -64,29 +64,29 @@ func (v TKey) AsBool(name string) bool {
 	return ret > 0
 }
 
-//export HostKeyAsString
+//export hostKeyAsString
 func hostKeyAsString(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsBytes
+//export hostKeyAsBytes
 func hostKeyAsBytes(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsQNamePkg
+//export hostKeyAsQNamePkg
 func hostKeyAsQNamePkg(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsQNameEntity
+//export hostKeyAsQNameEntity
 func hostKeyAsQNameEntity(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsBool
+//export hostKeyAsBool
 func hostKeyAsBool(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsInt32
+//export hostKeyAsInt32
 func hostKeyAsInt32(id uint64, namePtr, nameSize uint32) uint32
 
-//export HostKeyAsInt64
+//export hostKeyAsInt64
 func hostKeyAsInt64(id uint64, namePtr, nameSize uint32) uint64
 
-//export HostKeyAsFloat32
+//export hostKeyAsFloat32
 func hostKeyAsFloat32(id uint64, namePtr, nameSize uint32) float32
 
-//export HostKeyAsFloat64
+//export hostKeyAsFloat64
 func hostKeyAsFloat64(id uint64, namePtr, nameSize uint32) float64
