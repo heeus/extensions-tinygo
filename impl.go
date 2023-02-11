@@ -7,6 +7,7 @@ package extensions
 
 import (
 	"reflect"
+	"runtime"
 	"unsafe"
 )
 
@@ -49,6 +50,7 @@ func readValuesImpl(key TKeyBuilder, callback func(key TKey, value TValue)) {
 
 var currentReadCallback func(key TKey, value TValue)
 
+//lint:ignore U1000 this is an exported func
 //export WasmOnReadValue
 func onReadValue(key, value uint64) {
 	currentReadCallback(TKey(key), TValue(value))
@@ -72,8 +74,45 @@ func hostNewValue(keyId uint64) uint64
 //export hostUpdateValue
 func hostUpdateValue(keyId uint64, existingValueId uint64) uint64
 
+//lint:ignore U1000 this is an exported func
 //export WasmAbiVersion_0_0_1
 func proxyABIVersion() {
+}
+
+var ms runtime.MemStats
+
+//lint:ignore U1000 this is an exported func
+//export WasmGetHeapInuse
+func getHeapInuse() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.HeapInuse
+}
+
+//lint:ignore U1000 this is an exported func
+//export WasmGetMallocs
+func getMallocs() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.Mallocs
+}
+
+//lint:ignore U1000 this is an exported func
+//export WasmGetFrees
+func getFrees() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.Frees
+}
+
+//lint:ignore U1000 this is an exported func
+//export WasmGetHeapSys
+func getHeapSys() uint64 {
+	runtime.ReadMemStats(&ms)
+	return ms.HeapSys
+}
+
+//lint:ignore U1000 this is an exported func
+//export WasmGC
+func gc() {
+	runtime.GC()
 }
 
 //export hostPanic
