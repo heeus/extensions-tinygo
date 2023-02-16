@@ -31,7 +31,7 @@ func queryValueImpl(key TKeyBuilder) (bool, TValue) {
 	}
 }
 
-func getValueImpl(key TKeyBuilder) TValue {
+func mustGetValueImpl(key TKeyBuilder) TValue {
 	return TValue(hostGetValue(uint64(key)))
 }
 

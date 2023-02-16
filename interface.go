@@ -10,8 +10,8 @@ var KeyBuilder func(storage, entity string) (b TKeyBuilder) = keyBuilderImpl
 // QueryValue queries value. When not exists it returns exists=false and value=nil.
 var QueryValue func(key TKeyBuilder) (exists bool, value TValue) = queryValueImpl
 
-// GetValue gets value. Panics when value is not exist
-var GetValue func(key TKeyBuilder) TValue = getValueImpl
+// MustGetValue gets value. Panics when value is not exist
+var MustGetValue func(key TKeyBuilder) TValue = mustGetValueImpl
 
 // ReadValues reads using partial key and returns values in callback.
 //
