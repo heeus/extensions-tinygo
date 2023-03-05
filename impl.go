@@ -22,9 +22,11 @@ func Panic(msg string) {
 	hostPanic(uint32(nh.Data), uint32(nh.Len))
 }
 
+const maxUint = ^uint64(0)
+
 func queryValueImpl(key TKeyBuilder) (bool, TValue) {
 	id := hostQueryValue(uint64(key))
-	if id > 0 {
+	if id != maxUint {
 		return true, TValue(id)
 	} else {
 		return false, TValue(0)
